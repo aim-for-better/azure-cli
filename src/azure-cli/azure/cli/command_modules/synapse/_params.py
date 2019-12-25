@@ -7,13 +7,38 @@ from azure.cli.core.commands.parameters import get_enum_type, name_type, tags_ty
     get_generic_completion_list, get_three_state_flag, get_resource_name_completion_list
 from azure.cli.core.util import get_json_object
 
-
 # pylint: disable=too-many-statements
 def load_arguments(self, _):
     from knack.arguments import CLIArgumentType
 
     # spark batch
-    with self.argument_context("synapse spark-batch") as c:
+    with self.argument_context("synapse") as c:
         c.argument('workspace_name', arg_type=name_type, help='The name of the workspace.')
-        c.argument('sparkpool_name', arg_type=name_type, help='The name of the spark pool.')
-        c.argument('batch_id', arg_group='Spark Batch', help='The id of the spark batch job')
+        c.argument('spark_pool_name', help='The name of the spark pool.')
+        c.argument('from_index', help='Optional param specifying which index the list should begin from.')
+        c.argument('detailed',
+                   help='Optional query param specifying whether detailed response is returned beyond plain livy.')
+        c.argument('batch_id', arg_group='Spark Batch', help='The id of the spark batch job.')
+        c.argument('session_id', arg_group='Spark Session', help='The id of the spark session job.')
+        c.argument('size',
+                   help='Optional param specifying the size of the returned list.By default it is 20 and that is the maximum.')
+        c.argument('tags', help='The tag of spark batch job.')
+        c.argument('artifact_id', help='The artifact id.')
+        c.argument('job_name', help='The spark batch or session job name.')
+        c.argument('file', help='The URI of file.')
+        c.argument('class_name', help='The class name.')
+        c.argument('args', nargs='+', help='The arguments of the job.')
+        c.argument('jars', nargs='+', help='The array of jar files.')
+        c.argument('files', nargs='+', help='The array of files URI.')
+        c.argument('archives', nargs='+', help='The array of archives.')
+        c.argument('conf', help='The configuration of spark batch job.')
+        c.argument('driver_memory', help='The memory of driver.')
+        c.argument('driver_cores', help='The number of cores in driver.')
+        c.argument('executor_memory', help='The memory of executor.')
+        c.argument('executor_cores', help='The number of cores in each executor.')
+        c.argument('executor_number', help='The number of executors.')
+
+    with self.argument_context("synapse spark-statement") as c:
+        c.argument('statement_id', help='The id of the statement.')
+        c.argument('code', help='The code of spark statement.')
+        c.argument('kind', help='The kind of spark statement.')

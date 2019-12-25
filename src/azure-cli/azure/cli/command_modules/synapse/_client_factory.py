@@ -7,18 +7,22 @@ def synapse_client_factory(cli_ctx, **_):
     pass
 
 
-def synapse_data_plane_factory(cli_ctx, _):
+def synapse_data_plane_factory(cli_ctx, *_):
     from azure.synapse import SynapseClient
     from azure.cli.core.profiles import ResourceType, get_api_version
     from msrestazure.azure_active_directory import AADTokenCredentials
 
     version = str(get_api_version(cli_ctx, ResourceType.DATA_SYNAPSE))
 
-    def get_token(server, resource, scope): # pylint: disable=unused-argument
+    def get_token(resource): # pylint: disable=unused-argument
         import adal
         from azure.cli.core._profile import Profile
         try:
-            return Profile(cli_ctx=cli_ctx).get_raw_token(resource)[0]
+            raw_token=Profile(cli_ctx=cli_ctx).get_raw_token(resource)
+            print(raw_token)
+            token=raw_token[0][2]
+            print(token)
+            return token
         except adal.AdalError as err:
             from knack.util import CLIError
             #pylint: disable=no-member
@@ -29,7 +33,7 @@ def synapse_data_plane_factory(cli_ctx, _):
                     "Credentials have expired due to inactivity. Please run 'az login'")
             raise CLIError(err)
 
-    client = SynapseClient(AADTokenCredentials(get_token()),"dev.azuresynapse.net")
+    client = SynapseClient(AADTokenCredentials(get_token("https://dev.azuresynapse.net")),"dev.azuresynapse.net", "2019-11-01-preview")
 
     return client
 
@@ -38,4 +42,3 @@ def cf_synapse_spark_batch(cli_ctx, *_, **__):
 
 def cf_synapse_spark_session(cli_ctx, *_, **__):
     return synapse_data_plane_factory(cli_ctx).spark_session
-
