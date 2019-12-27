@@ -42,3 +42,8 @@ def load_arguments(self, _):
         c.argument('statement_id', help='The id of the statement.')
         c.argument('code', help='The code of spark statement.')
         c.argument('kind', help='The kind of spark statement.')
+
+    # synapse workspace
+    with self.argument_context("synapse workspace") as c:
+        c.argument('resource_group_name', help='The resource group name.')
+        c.argument('workspace_name', arg_type=name_type, help='The workspace name.')

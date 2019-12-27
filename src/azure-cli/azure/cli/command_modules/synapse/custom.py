@@ -104,3 +104,13 @@ def get_spark_session_statement(cmd, client, workspace_name, spark_pool_name, se
 def delete_spark_session_statement(cmd, client, workspace_name, spark_pool_name, session_id, statement_id):
     print("delete spark session statement.")
     return client.delete_statement(workspace_name, spark_pool_name, session_id, statement_id)
+
+
+def get_workspace(cmd, client, resource_group_name, workspace_name):
+    print("get synapse workspace")
+    return client.get(resource_group_name, workspace_name)
+
+
+def get_bigdatapool(cmd, client, resource_group_name, workspace_name, bigdatapool_name):
+    print("get synapse bigdatapool")
+    return client.get(resource_group_name, workspace_name, bigdatapool_name)

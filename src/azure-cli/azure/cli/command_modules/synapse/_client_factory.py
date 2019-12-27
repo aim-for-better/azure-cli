@@ -3,8 +3,19 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-def synapse_client_factory(cli_ctx, **_):
-    pass
+
+def synapse_client_factory(cli_ctx, *_, **__):
+    from azure.cli.core.commands.client_factory import get_mgmt_service_client
+    from azure.mgmt.synapse import SynapseManagementClient
+    return get_mgmt_service_client(cli_ctx, SynapseManagementClient)
+
+
+def cf_synapse_client_workspace_factory(cli_ctx, *_):
+    return synapse_client_factory(cli_ctx).workspaces
+
+
+def cf_synapse_client_bigdatapool_factory(cli_ctx, *_):
+    return synapse_client_factory(cli_ctx).bigdatapools
 
 
 def synapse_data_plane_factory(cli_ctx, *_):

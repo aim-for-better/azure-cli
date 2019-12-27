@@ -1,7 +1,10 @@
+# --------------------------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See License.txt in the project root for license information.
+# --------------------------------------------------------------------------------------------
+
 from azure.cli.core import AzCommandsLoader
-
-
-# from azure.cli.command_modules.synapse._help import helps
+import azure.cli.command_modules.synapse._help
 
 class SynapseCommandsLoader(AzCommandsLoader):
 

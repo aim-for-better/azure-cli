@@ -6,24 +6,48 @@
 def load_command_table(self, _):
     from azure.cli.core.commands import CliCommandType
     from azure.cli.core.profiles import ResourceType
+    from ._client_factory import cf_synapse_client_workspace_factory
+    from ._client_factory import cf_synapse_client_bigdatapool_factory
     from ._client_factory import synapse_data_plane_factory
     from ._client_factory import cf_synapse_spark_batch
     from ._client_factory import cf_synapse_spark_session
 
+    synapse_workspace_sdk = CliCommandType(
+        operations_tmpl='azure.mgmt.synapse.operations#WorkspacesOperations.{}',
+        client_factory=cf_synapse_client_workspace_factory,
+        resource_type=ResourceType.MGMT_SYNAPSE
+    )
+
+    synapse_bigdatapool_sdk = CliCommandType(
+        operations_tmpl='azure.mgmt.synapse.operations#BigDataPoolsOperations.{}',
+        client_factory=cf_synapse_client_bigdatapool_factory,
+        resource_type=ResourceType.MGMT_SYNAPSE
+    )
+
     synapse_data_sdk = CliCommandType(
-        operation_tmpl='azure.synapse.synapse_client#SynapseClient.{}',
+        operations_tmpl='azure.synapse.synapse_client#SynapseClient.{}',
         client_factory=synapse_data_plane_factory,
         resource_type=ResourceType.DATA_SYNAPSE
     )
     synapse_spark_batch_sdk = CliCommandType(
-        operation_tmpl='azure.synapse.operations#SparkBatchOperations.{}',
+        operations_tmpl='azure.synapse.operations#SparkBatchOperations.{}',
         client_factory=cf_synapse_spark_batch
     )
 
-    synapse_spark_session_sdk= CliCommandType(
+    synapse_spark_session_sdk = CliCommandType(
         operations_tmpl='azure.synapse.operations#SparkSessionOperations.{}',
         client_factory=cf_synapse_spark_session
     )
+
+    # Management Plane Commands
+    with self.command_group('synapse workspace', synapse_workspace_sdk,
+                            client_factory=cf_synapse_client_workspace_factory) as g:
+        g.custom_command('show', 'get_workspace')
+
+
+    with self.command_group('synapse bigdatapool', synapse_bigdatapool_sdk, \
+                            client_factory=cf_synapse_client_bigdatapool_factory) as g:
+        g.custom_command('show', 'get_bigdatapool')
 
     # Data Plane Commands
     # Spark batch opertions
