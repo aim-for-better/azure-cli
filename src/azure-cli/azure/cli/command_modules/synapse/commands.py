@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+
 def load_command_table(self, _):
     from azure.cli.core.commands import CliCommandType
     from azure.cli.core.profiles import ResourceType
@@ -43,11 +44,17 @@ def load_command_table(self, _):
     with self.command_group('synapse workspace', synapse_workspace_sdk,
                             client_factory=cf_synapse_client_workspace_factory) as g:
         g.custom_command('show', 'get_workspace')
+        g.custom_command('list', 'list_workspace')
+        g.custom_command('list-by-resource-group', 'list_workspace_by_resource_group')
+        g.custom_command('create', 'create_workspace', supports_no_wait=True)
+        g.custom_command('delete', 'delete_workspace', confirmation=True, supports_no_wait=True)
 
-
-    with self.command_group('synapse bigdatapool', synapse_bigdatapool_sdk, \
+    with self.command_group('synapse big-data-pool', synapse_bigdatapool_sdk,
                             client_factory=cf_synapse_client_bigdatapool_factory) as g:
-        g.custom_command('show', 'get_bigdatapool')
+        g.custom_command('show', 'get_big_data_pool')
+        g.custom_command('list', 'list_big_data_pool_by_workspace')
+        g.custom_command('create', 'create_big_data_pool', supports_no_wait=True)
+        g.custom_command('delete', 'delete_big_data_pool', confirmation=True, supports_no_wait=True)
 
     # Data Plane Commands
     # Spark batch opertions
@@ -67,8 +74,8 @@ def load_command_table(self, _):
         g.custom_command('reset-timeout', 'reset_timeout')
 
     # Spark session statements operations
-    with self.command_group('synapse spark-statement', synapse_spark_session_sdk,\
-                             client_factory=cf_synapse_spark_session) as g:
+    with self.command_group('synapse spark-statement', synapse_spark_session_sdk,
+                            client_factory=cf_synapse_spark_session) as g:
         g.custom_command('create', 'create_spark_session_statement', supports_no_wait=True)
         g.custom_command('list', 'list_spark_session_statements')
         g.custom_command('show', 'get_spark_session_statement')

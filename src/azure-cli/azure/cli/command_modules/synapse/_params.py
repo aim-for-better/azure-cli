@@ -47,3 +47,11 @@ def load_arguments(self, _):
     with self.argument_context("synapse workspace") as c:
         c.argument('resource_group_name', help='The resource group name.')
         c.argument('workspace_name', arg_type=name_type, help='The workspace name.')
+        c.argument("account_url", help='The data lake storage account url.')
+        c.argument('file_system', help='The file system of the data lake storage account.')
+        c.argument('sql_admin_login_user', help='The sql administrator login user name.')
+        c.argument('sql_admin_login_password', help='The sql administrator login password.')
+
+    # synapse big data pool
+    with self.argument_context("synapse big-data-pool") as c:
+        c. argument("big_data_pool_name", help='The big data pool name.')

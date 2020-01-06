@@ -15,7 +15,7 @@ def cf_synapse_client_workspace_factory(cli_ctx, *_):
 
 
 def cf_synapse_client_bigdatapool_factory(cli_ctx, *_):
-    return synapse_client_factory(cli_ctx).bigdatapools
+    return synapse_client_factory(cli_ctx).big_data_pools
 
 
 def synapse_data_plane_factory(cli_ctx, *_):
@@ -30,9 +30,7 @@ def synapse_data_plane_factory(cli_ctx, *_):
         from azure.cli.core._profile import Profile
         try:
             raw_token=Profile(cli_ctx=cli_ctx).get_raw_token(resource)
-            print(raw_token)
             token=raw_token[0][2]
-            print(token)
             return token
         except adal.AdalError as err:
             from knack.util import CLIError
