@@ -160,19 +160,19 @@ examples:
         az synapse spark-batch show --name testsynapseworkspace --spark-pool-name testsparkpool --batch-id 1
 """
 
-helps['synapse spark-batch delete'] = """
+helps['synapse spark-batch cancel'] = """
 type: command
 short-summary: cancel a specific spark batch job under the specific spark pool.
 long-summary: cancle the spark batch job under the specific spark pool with batch id.
 examples:
   - name: Cancel a spark batch job under the specific spark pool with batch id.
     text: |-
-        az synapse spark-batch delete --name testsynapseworkspace --spark-pool-name testsparkpool --batch-id 1
+        az synapse spark-batch cancel --name testsynapseworkspace --spark-pool-name testsparkpool --batch-id 1
 """
 
 helps['synapse spark-session'] = """
 type: group
-short-summary: Create, Get, List, Delete spark session job. 
+short-summary: Create, Get, List, Cancel spark session job. 
 """
 
 helps['synapse spark-session create'] = """
@@ -207,19 +207,19 @@ examples:
         az synapse spark-session show --name testsynapseworkspace --spark-pool-name testsparkpool --session-id 1
 """
 
-helps['synapse spark-session delete'] = """
+helps['synapse spark-session cancel'] = """
 type: command
 short-summary: cancel a specific spark session job under the specific spark pool.
 long-summary: cancle the spark session job under the specific spark pool with batch id.
 examples:
   - name: Cancel a spark session job under the specific spark pool with batch id.
     text: |-
-        az synapse spark-session delete --name testsynapseworkspace --spark-pool-name testsparkpool --session-id 1
+        az synapse spark-session cancel --name testsynapseworkspace --spark-pool-name testsparkpool --session-id 1
 """
 
 helps['synapse spark-statement'] = """
 type: group
-short-summary: Create, Get, List, Delete spark statement. 
+short-summary: Create, Get, List, Cancel spark statement. 
 """
 
 helps['synapse spark-statement create'] = """
@@ -254,13 +254,13 @@ examples:
         az synapse spark-statement list --name testsynapseworkspace --spark-pool-name testsparkpool --session-id 11
 """
 
-helps['synapse spark-statement delete'] = """
+helps['synapse spark-statement cancel'] = """
 type: command
-short-summary: delete a spark statement with statement id.
-long-summary: delete a spark statement with statement id.
+short-summary: cancel a spark statement with statement id.
+long-summary: cancel a spark statement with statement id.
 examples:
-  - name: Delete a spark statement with statement id
+  - name: Cancel a spark statement with statement id
     text: |-
-        az synapse spark-statement delete --name testsynapseworkspace --spark-pool-name testsparkpool \\
+        az synapse spark-statement cancel --name testsynapseworkspace --spark-pool-name testsparkpool \\
         --session-id 11 --statement-id 1
 """
