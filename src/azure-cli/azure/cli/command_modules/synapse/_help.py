@@ -212,7 +212,7 @@ type: command
 short-summary: reset the spark session timeout time.
 long-summary: reset the spark session timeout time under the specific spark pool with session id.
 examples:
-  - name: Cancel a spark session job under the specific spark pool with batch id.
+  - name: Reset the spark session timeout time.
     text: |-
         az synapse spark session reset-timeout --id 1 --workspace-name testsynapseworkspace --spark-pool-name testsparkpool
 """
